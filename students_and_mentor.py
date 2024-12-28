@@ -118,12 +118,41 @@ second_student.rate_lecturers(first_lecturer, "Python", 8)
 second_student.rate_lecturers(first_lecturer, "GIT", 7)
 second_student.rate_lecturers(second_lecturer, "GIT", 10)
 
-# Оценивание проверяющими студентов
-
-
 # Создание экземпляров класса Проверяющий
 first_reviewer = Reviewer("Boris", "Ivanov")
 second_reviewer = Reviewer("Irina", "Shishkova")
 
+# Установка значений курсов для экземпляров класса Проверяющий
+first_reviewer.set_course_attached("Python")
+first_reviewer.set_course_attached("GIT")
+second_reviewer.set_course_attached("GIT")
+
+# Оценивание проверяющими студентов
+first_reviewer.rate_hw(first_student, "Python", 10)
+first_reviewer.rate_hw(first_student, "GIT", 10)
+second_reviewer.rate_hw(second_student, "GIT", 10)
 
 print(first_student, second_student, first_lecturer, second_lecturer, first_reviewer, second_reviewer, sep="\n\n")
+
+print(f"Результат сравнения студентов: {first_student == second_student}")
+print(f"Результат сравнения лекторов: {first_lecturer == second_lecturer}")
+
+
+def count_grades_students(list_students, course):
+    list_all_rate = []
+    for student in list_students:
+        if course in student.grades:
+            list_all_rate += student.grades[course]
+    print(f"Средняя оценка по курсу {course}: {sum(list_all_rate) / len(list_all_rate)}")
+
+
+def count_grades_lecturers(list_lecturers, course):
+    list_all_rate = []
+    for lecturer in list_lecturers:
+        if course in lecturer.grades:
+            list_all_rate += lecturer.grades[course]
+    print(f"Средняя оценка по курсу {course}: {sum(list_all_rate) / len(list_all_rate)}")
+
+
+count_grades_students([first_student, first_student], "Python")
+count_grades_lecturers([first_lecturer, second_lecturer], "GIT")
